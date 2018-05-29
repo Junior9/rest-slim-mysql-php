@@ -1,0 +1,49 @@
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+				aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span> 
+				<span class="icon-bar"></span> 
+				<span class="icon-bar"></span> 
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<ol class="breadcrumb">
+	  <li><a href="/#/usuario">Home</a></li>
+	  <li><b>New User</b></li>
+	</ol>
+
+	<div class="row">
+		<div class="col-md-4"></div>
+		
+		<div class="col-md-4">
+			<form class="form" ng-submit="save()">
+			
+				<label for="name" class="">Name</label> 
+				<input ng-model="user.name" type="text"  name="name" class="form-control">
+			
+				<label for="birdyday" class=""> BirdyDay</label> 
+				<input ng-model="user.date" type="date"  name="name" class="form-control">
+				
+				<label for="andress" class=""> Andress</label> 
+				<input ng-model="user.andress" type="text"  name="name" class="form-control">
+				
+				<div class="row">
+					<div class="col-md-3"></div>
+					<div class="col-md-3">								
+						<button type="submit" class="btn btn-primary" ng-disabled="formulario.$invalid">Salvar</button>
+					</div>
+					<div class="col-md-3">
+						<button type="reset" class="btn btn-primary">Limpar</button>
+					</div>
+				</div>			
+			</form>
+		</div>
+	</div>
+</div>

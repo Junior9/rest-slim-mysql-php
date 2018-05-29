@@ -1,0 +1,48 @@
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+				aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span> 
+				<span class="icon-bar"></span> 
+				<span class="icon-bar"></span> 
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+	</div>
+</nav>
+
+
+<div class="container">
+
+	<div class="row">
+		<a href="#/new/user" class="btn btn-primary "> New User  </a>
+	</div>
+
+	<div class="row">
+		<h3>Customers</h3>
+
+		<table class="table  table-striped">
+			<tr>
+				<td class="">Name</td>
+				<td class="">Birdy day</td>
+				<td class="">Andress</td>
+				<td class="">delete</td>
+			</tr>
+		
+			<tr ng-repeat="user in users | filter : filterName">
+				<td><a ng-click="update(user.id)"> {{user.name}} </a></td>
+				<td>{{user.date}}</td>
+				<td>{{user.andress}}</td>
+				<td><a ng-click="delete(user.id)"> <span class="glyphicon glyphicon-remove"></span> </td>
+<!-- 				<td> -->
+<!-- 					<span ng-repeat="andress in user.andress"> -->
+<!-- 						{{andress}} -->
+<!-- 						<br> -->
+<!-- 					 </span> -->
+<!-- 				</td>		 -->
+			</tr>
+		</table>
+	</div>
+</div>
