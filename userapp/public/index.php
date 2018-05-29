@@ -6,12 +6,6 @@ require '../vendor/autoload.php';
 require '../src/db.php';
 
 $app = new \Slim\App;
-$app->get('/hello/{name}', function (Request $request, Response $response, array $args) {
-    $name = $args['name'];
-    $response->getBody()->write("Hello, $name");
-
-    return $response;
-});
 
 
 #Get all users
@@ -24,7 +18,7 @@ $app->get('/user/all', function (Request $request, Response $response, array $ar
     	$stmt = $db->query($sql);
     	$users = $stmt->fetchAll(PDO::FETCH_OBJ);
     	$db = null;
-    	echo json_encode($users);
+    	return json_encode($users);
 
 
     }catch(PDOEception $erro){
@@ -43,10 +37,9 @@ $app->get('/user/{id}', function (Request $request, Response $response, array $a
     	$db = new db(); 
     	$db = $db->connect();
     	$stmt = $db->query($sql);
-    	$user = $stmt->fetchAll(PDO::FETCH_OBJ);
+    	$user = $stmt->fetch(PDO::FETCH_OBJ);
     	$db = null;
-    	echo json_encode($user);
-
+    	return json_encode($user);
 
     }catch(PDOEception $erro){
     	echo '{"erro" : {"text": '.$erro->getMessage().'}';
@@ -67,7 +60,7 @@ $app->delete('/user/delete/{id}', function (Request $request, Response $response
     	$stmt = $db->prepare($sql);
     	$stmt->execute();
     	$db = null;
-    	echo '{"notice" : {"text" : "User deleted"}';
+    	echo '{"notice" : {"text" : "User deleted"}}';
 
     }catch(PDOEception $erro){
     	echo '{"erro" : {"text": '.$erro->getMessage().'}';
@@ -82,7 +75,7 @@ $app->post('/user/add', function (Request $request, Response $response, array $a
 	$date = $request->getParam('date');
 	$andress = $request->getParam('andress');
 
-    $sql = "INSERT INTO usuarios (name,date,andress) VALUES (:name,:date,:andress)";
+    $sql = "INSERT INTO usuario (name,date,andress) VALUES (:name,:date,:andress)";
 
     try{
     	$db = new db(); 
@@ -93,7 +86,7 @@ $app->post('/user/add', function (Request $request, Response $response, array $a
     	$stmt->bindParam(':andress',$andress); 
     	$stmt->execute();
 
-    	echo '{"notice" : {"text" : "User added"}';
+    	echo '{"notice" : {"text" : "User added"} }';
 
     }catch(PDOEception $erro){
     	echo '{"erro" : {"text": '.$erro->getMessage().'}';
@@ -110,7 +103,7 @@ $app->put('/user/update/{id}', function (Request $request, Response $response, a
 	$date = $request->getParam('date');
 	$andress = $request->getParam('andress');
 
-    $sql = "UPDATE usuarios SET name = :name,	 date = :date,andress = :andress
+    $sql = "UPDATE usuario SET name = :name,	 date = :date,andress = :andress
     	 	WHERE id = $id";
 
     try{
@@ -122,10 +115,10 @@ $app->put('/user/update/{id}', function (Request $request, Response $response, a
     	$stmt->bindParam(':andress',$andress); 
     	$stmt->execute();
 
-    	echo '{"notice" : {"text" : "User updated"}';
+    	echo '{"notice" : {"text" : "User updated"}}';
 
     }catch(PDOEception $erro){
-    	echo '{"erro" : {"text": '.$erro->getMessage().'}';
+    	echo '{"erro" : {"text": '.$erro->getMessage().'}}';
     }
 });
 

@@ -2,7 +2,10 @@ angular.module('main-user').controller('userController',function ($scope, $http,
 
 	$scope.users = {};
 	$scope.user = {};
-	
+	$scope.id = sessionStorage.getItem('id');
+
+
+
 	$http.get('/usuarioapp/userapp/public/user/all')
 	.success(function(users){
 		$scope.users = users;
@@ -12,10 +15,9 @@ angular.module('main-user').controller('userController',function ($scope, $http,
 	});
 	
 	$scope.save = function(){
-		$http.post('/usuarios',$scope.user)
-		.success(function(users){
-			$scope.users = users;
-			$location.path("/usuario");
+		$http.post('/usuarioapp/userapp/public/user/add',$scope.user)
+		.success(function(data){
+			$location.path("/home");
 		})
 		.catch(function(error){
 			console.log(error);
@@ -23,23 +25,27 @@ angular.module('main-user').controller('userController',function ($scope, $http,
 	}
 	
 	$scope.delete = function(id){
-		$http.delete('/usuarios',id)
-		.success(function(users){
-			$location.path("/usuario");
+		$http.delete('/usuarioapp/userapp/public/user/delete/'+id)
+		.success(function(data){
+			$location.path("/home");
 		})
 		.catch(function(error){
 			console.log(error);
 		});
 	}
 	
-	$scope.update = function(){
-		$http.post('/usuarios',$scope.user)
+	$scope.update = function(id){
+		sessionStorage.setItem('id',id);
+		$location.path("/user/update");
+	}
+
+	$scope.update1 = function(){
+		$http.post('/usuarioapp/userapp/public/usuarios',$scope.user)
 		.success(function(user){
-			$location.path("/usuario");
+			$location.path("/home");
 		})
 		.catch(function(error){
 			console.log(error);
 		});
 	}
-	
 });
